@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="Pragma" content="no-cache"/>
+      <meta http-equiv="Expires" content="-1"/>
+      <meta http-equiv="CACHE-CONTROL" content="NO-CACHE"/>
+      <title>Execmobile Corporate</title>
+      <!-- BOOTSTRAP STYLES-->
+      <link href="assets/css/bootstrap.css" rel="stylesheet" />
+      <!-- FONTAWESOME ICONS STYLES-->
+      <link href="assets/css/font-awesome.css" rel="stylesheet" />
+      <!--CUSTOM STYLES-->
+      <link href="assets/css/style.css" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+      <script src="assets/js/app.js"></script>
+      <script src="assets/js/dirPagination.js"></script>
+      <script src="assets/js/angular-md5.js"></script>
+      <script src="assets/js/angular-busy.min.js"></script>
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/pad-nopadding-min.js"></script>
+      <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body ng-app="execMobileApp" ng-controller="CompanyController as customers">
+      <div id="wrapper">
+         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <img src="assets/img/logo.png"  class="navbar-brand"/>
+            </div>
+            <div class="notifications-wrapper">
+               <div class="nav">      
+                  <a href="" ng-click="customers.tryLogout()"><i class="fa fa-sign-out fa-5x" style="float:right;margin-right:30px" ng-show="customers.isLoggedIn()"></i></a>
+                  <a href="#" 	data-toggle="dropdown">
+                        <i class="fa fa-sign-in fa-5x" style="float:right;margin-right:30px" ng-show="!customers.isLoggedIn()"></i>
+								<div class="dropdown-menu" style="left: auto;right:10px;width:200px">
+									<div class="row" style="width:220px;padding-left:15px">
+                                        <div class=" col-md-12 col-sm-6">
+										<form name="loginForm" ng-submit="customers.tryLogin(loginForm.$valid)" novalidate >
+											
+												<label class="sr-only" for="username">Username</label> 
+                                                <input type="text" class="form-control"	id="username" placeholder="Username" ng-model="customers.user.username" required>
+											
+												<label class="sr-only" for="password">Password</label>
+												<input type="password" class="form-control" id="password" placeholder="Password"  ng-model="customers.user.password" required>
+												
+												 
+												
+												<button type="submit" class="btn btn-primary btn-block" ng-disabled="loginForm.$invalid" ng-click="customers.tryLogin(loginForm.$valid)">Sign in</button>
+											
+										</form>
+                                        </div>
+									</div>
+                                    <div class="row" style="width:220px;padding-left:15px;">
+                                        <div class=" col-md-12 col-sm-6">
+                                        <a href="" ng-click="customers.requestPasswordReset()">Forgot Password ?</a>
+                                        </div>
+                                        </div>
+                                   
+								</div>
+							
+               </div>
+            </div>
+         </nav>
+         <!-- /. NAV TOP  -->
+         <nav  class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+               <ul class="nav" id="main-menu">
+                  <li class="side-menu" ng-show="customers.isAdmin()">
+                     <a class="active-menu"  href="#"><i class="fa fa-building-o" ></i>Companies</a>
+                  </li>
+                  <li class="side-menu" ng-show="customers.isAdmin()">
+                     <a class="active-menu"  href="products.html"><i class="fa fa-shopping-cart" ></i>Products</a>
+                  </li>
+                  <li class="side-menu" ng-show="customers.isAdmin()">
+                     <a class="active-menu"  href="freedevices.html"><i class="fa fa-mobile"></i>Available Devices</a>
+                  </li>
+                   <li class="side-menu">
+                     <a class="active-menu" href="allocateddevices.html"><i class="fa fa-link" ></i>Devices</a>
+                  </li>
+                  <li class="side-menu" ng-show="customers.isAdmin()">
+                     <a class="active-menu" href="usage.html"><i class="fa fa-history" ></i>Usage History</a>
+                  </li>
+                  <li class="side-menu">
+                     <a class="active-menu" href="report.html"><i class="fa fa-bar-chart" ></i>Reports</a>
+                  </li>
+                  <li class="side-menu" ng-show="customers.isAdmin()">
+                     <a class="active-menu"  href="appusers.html"><i class="fa fa-user" ></i>App Users</a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         <!-- /. SIDEBAR MENU (navbar-side) -->
+         <div id="page-wrapper" class="page-wrapper-cls">
+            <div id="company-page-inner" class="company content" ng-show="customers.isAdmin()">
+               <div class="row">
+                  <div class=" col-md-12 col-sm-6">
+                     <div class="nav">
+                        <a href="" data-toggle="modal" data-target="#companyModal"><i class="fa fa-plus fa-2x" style="float:right; margin-right:10px"></i></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class=" col-md-12 col-sm-6">
+                     <form class="form-inline">
+                        <div class="form-group">
+                           <label >Search</label>
+                           <input type="text" ng-model="companysearch" class="form-control" placeholder="Search">
+                        </div>
+                     </form>
+                     <br><br>
+                     <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                           <thead>
+                              <tr>
+                                 <th>Company</th>
+                                 <th>Location</th>
+                                 <th>Username</th>
+                                 <th>Devices</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr dir-paginate="company in customers.companies|filter:companysearch|itemsPerPage:10">
+                                 <td >{{company.name}}</td>
+                                 <td>{{company.country.countryName}}</td>
+                                  <td >{{company.username}}</td>
+                                 <td  class="device-menu"><a href="" ng-click="customers.setCurrentCompany(company)">Devices</a>
+                                 </td>
+                                 <td><a href="" data-toggle="modal" data-target="#companyModal" ng-click="customers.setCompanyForModal(company)"><i class="fa fa-pencil-square-o" style="float:left;"></a></i></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <dir-pagination-controls
+                           max-size="8"
+                           direction-links="true"
+                           boundary-links="true" >
+                        </dir-pagination-controls>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /. PAGE INNER  -->
+            <!-- /. PAGE WRAPPER  -->
+         </div>
+         <!-- /. WRAPPER  -->
+      </div>
+      <footer >
+         &copy; 2016 Execmobile | By : <a href="http://www.execmobile.co.za/" target="_blank">ExecMobile</a>
+      </footer>
+      <!-- /. FOOTER  -->
+      <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+      <!-- JQUERY SCRIPTS -->
+      <script src="assets/js/jquery-1.11.1.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+      <script src="assets/js/bootstrap.js"></script>
+      <!-- METISMENU SCRIPTS -->
+      <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+      <script src="assets/js/custom.js"></script>
+      <script>
+         jQuery( function($) {
+         $('tbody tr[data-href]').addClass('clickable').click( function() {
+         	window.location = $(this).attr('data-href');
+         });
+         });
+          $(document).ready(function(){
+         $('#companyModal').modal('hide');
+         });
+         $('.dropdown-menu input, .dropdown-menu label').click(function(e) {
+        e.stopPropagation();
+    });
+      </script>
+      <div id="companyModal" name="companyModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" ng-click="customers.clearCurrentCompany()">&times;</button>
+                  <h2>Add/Update Company</h2>
+               </div>
+               <div class="modal-body">
+                  <form name="companyForm" ng-submit="customers.submitForm(companyForm.$valid)" novalidate>
+                     <label>Name:</label>
+                     <input type="text" name="name" class="form-control" ng-model="customers.currentCompany.name" required>
+                     <br>
+                     <label>Location:</label>
+                     <select ng-model="customers.currentCompany.country.countryId" required>
+                        <option ng-repeat="country in customers.locations"
+                           value="{{country.countryId}}">
+                           {{country.countryName}}
+                        </option>
+                     </select>
+                     <br>
+                     <label>Username:</label>
+                     <input type="text" name="username" class="form-control" ng-model="customers.currentCompany.username" required>
+                     <br>
+                     <label>Password:</label>
+                     <input type="password" name="password" class="form-control" ng-model="customers.currentCompany.password" required>
+                     <br>
+                     <label>Confirm Password:</label>
+                     <input ng-model='customers.currentCompany.$$password_verify' type="password" name='confirm_password' class="form-control" required data-password-verify="customers.currentCompany.password">
+                        <div ng-show="companyForm.confirm_password.$error.required">
+                        Confirm Password required!</div>
+                        <div ng-show="companyForm.confirm_password.$error.passwordVerify">
+                            Passwords do not match!</div>
+                     <br>
+                     <br><br>
+                     <button type="submit" class="btn btn-primary" busy="Processing" ng-disabled="companyForm.$invalid">Submit</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+   </body>
+</html>

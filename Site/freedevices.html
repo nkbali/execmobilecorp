@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="Pragma" content="no-cache"/>
+      <meta http-equiv="Expires" content="-1"/>
+      <meta http-equiv="CACHE-CONTROL" content="NO-CACHE"/>
+      <title>Execmobile Corporate</title>
+      <!-- BOOTSTRAP STYLES-->
+      <link href="assets/css/bootstrap.css" rel="stylesheet" />
+      <!-- FONTAWESOME ICONS STYLES-->
+      <link href="assets/css/font-awesome.css" rel="stylesheet" />
+      <!--CUSTOM STYLES-->
+      <link href="assets/css/style.css" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+      <script src="assets/js/app.js"></script>
+      <script src="assets/js/dirPagination.js"></script>
+      <script src="assets/js/angular-md5.js"></script>
+      <script src="assets/js/angular-busy.min.js"></script>
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/pad-nopadding-min.js"></script>
+      <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body ng-app="execMobileApp" ng-controller="AvailableDeviceController as availablepocketwifis">
+      <div id="wrapper">
+         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <img src="assets/img/logo.png"  class="navbar-brand"/>
+            </div>
+            <div class="notifications-wrapper">
+               <div class="nav">
+                <a href="" ng-click="availablepocketwifis.tryLogout()"><i class="fa fa-sign-out fa-5x" style="float:right;margin-right:30px" ng-show="availablepocketwifis.isLoggedIn()"></i></a>
+                  <a href="#" 	data-toggle="dropdown">
+                        <i class="fa fa-sign-in fa-5x" style="float:right;margin-right:30px" ng-show="!availablepocketwifis.isLoggedIn()"></i>
+								<div class="dropdown-menu" style="left: auto;right:10px;width:200px">
+									<div class="row" style="width:220px;padding-left:15px">
+                                        <div class=" col-md-12 col-sm-6">
+										<form name="loginForm" ng-submit="availablepocketwifis.tryLogin(loginForm.$valid)" novalidate >
+											
+												<label class="sr-only" for="username">Username</label> 
+                                                <input type="text" class="form-control"	id="username" placeholder="Username" ng-model="availablepocketwifis.user.username" required>
+											
+												<label class="sr-only" for="password">Password</label>
+												<input type="password" class="form-control" id="password" placeholder="Password"  ng-model="availablepocketwifis.user.password" required>
+												
+												 
+												
+												<button type="submit" class="btn btn-primary btn-block" ng-disabled="loginForm.$invalid" ng-click="availablepocketwifis.tryLogin(loginForm.$valid)">Sign in</button>
+											
+										</form>
+                                        </div>
+									</div>
+                                    <div class="row" style="width:220px;padding-left:15px;">
+                                        <div class=" col-md-12 col-sm-6">
+                                        <a href="" ng-click="availablepocketwifis.requestPasswordReset()">Forgot Password ?</a>
+                                        </div>
+                                        </div>
+                                   
+								</div>
+
+
+               </div>
+            </div>
+         </nav>
+         <!-- /. NAV TOP  -->
+         <nav  class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+               <ul class="nav" id="main-menu">
+                  <li class="side-menu" data-target=".company" ng-show="availablepocketwifis.isAdmin()">
+                     <a class="active-menu"  href="index.html"><i class="fa fa-building-o" ></i>Companies</a>
+                  </li>
+                  <li class="side-menu" data-target=".product" ng-show="availablepocketwifis.isAdmin()">
+                     <a class="active-menu"  href="products.html"><i class="fa fa-shopping-cart" ></i>Products</a>
+                  </li>
+                   <li class="side-menu" data-target=".freedevice" ng-show="availablepocketwifis.isAdmin()">
+                     <a class="active-menu"  href="#"><i class="fa fa-mobile" ></i>Available Devices</a>
+                  </li>
+                  <li class="side-menu">
+                     <a class="active-menu" href="allocateddevices.html"><i class="fa fa-link" ></i>Devices</a>
+                  </li>
+                  <li class="side-menu" data-target=".usage" ng-show="availablepocketwifis.isAdmin()">
+                     <a class="active-menu" href="usage.html"><i class="fa fa-history" ></i>Usage History</a>
+                  </li>
+                   <li class="side-menu">
+                     <a class="active-menu" href="report.html"><i class="fa fa-bar-chart" ></i>Reports</a>
+                  </li>
+                  <li class="side-menu" ng-show="availablepocketwifis.isAdmin()">
+                     <a class="active-menu"  href="appusers.html"><i class="fa fa-user" ></i>App Users</a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         <!-- /. SIDEBAR MENU (navbar-side) -->
+         <div id="page-wrapper" class="page-wrapper-cls">
+            
+            <div id="freedevice-page-inner" class="freedevice content" ng-show="availablepocketwifis.isAdmin()">
+               <div class="row">
+                  <div class=" col-md-12 col-sm-6">
+                     <div class="nav">
+                       <a href="" data-toggle="modal" data-target="#fileUploadModal"><i class="fa fa-upload fa-2x"  style="float:right; margin-right:10px"></i></a>
+                       <a href="" data-toggle="modal" data-target="#deviceLinkModal"><i class="fa fa-link fa-2x" style="float:right; margin-right:10px"></i></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class=" col-md-12 col-sm-6">
+                     <div class="table-responsive">
+                         <form class="form-inline">
+                        <div class="form-group">
+                           <label >Search</label>
+                           <input type="text" ng-model="freedevicesearch" class="form-control" placeholder="Search">
+                        </div>
+                     </form><br><br>
+                        <table class="table table-striped table-bordered table-hover">
+                           <thead>
+                              <tr>
+                                 <th>DeviceID</th>
+                                 <th>IMEI</th>
+                                 <th>Invoice Name</th>
+                                 <th>ZTERef</th>
+                                 <th>Period</th>
+                                 <th>Invoice No</th>
+                                 <th>RINV No</th>
+                                 <th>MSISDN</th>
+                                 <th>Sim</th>
+                                 <th>Comment</th>
+                                 <th>Support</th>
+                                 <th>Active</th>
+                                 <th>Select</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr dir-paginate="device in availablepocketwifis.devices|filter:freedevicessearch|itemsPerPage:10">
+                                 <td>{{device.deviceId}}</td>
+                                 <td>{{device.imei}}</td>
+                                 <td>{{device.invoiceName}}</td>
+                                 <td>{{device.zteref}}</td>
+                                 <td>{{device.period}}</td>
+                                 <td>{{device.invoiceNumber}}</td>
+                                 <td>{{device.rinvNo}}</td>
+                                 <td>{{device.msisdn}}</td>
+                                 <td>{{device.sim}}</td>
+                                 <td>{{device.support}}</td>
+                                 <td>{{device.comment}}</td>
+                                 <td><input id="{{device.deviceId}}" 
+                        type="checkbox" value="{{device.deviceId}}"
+                         ng-checked="device.isActive" 
+                         ng-click="toggleSelection(device)" />
+                         <label for="{{device.deviceId}}"></label></td>
+                         <td><input id="{{device.deviceId}}" 
+                        type="checkbox" value="{{device.deviceId}}"
+                         ng-checked="availablepocketwifis.findIndexOf(device.deviceId) > -1" 
+                         ng-click="availablepocketwifis.toggleSelection(device)" /></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <dir-pagination-controls
+                           max-size="5"
+                           direction-links="true"
+                           boundary-links="true" >
+                        </dir-pagination-controls>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /. PAGE WRAPPER  -->
+         </div>
+         <!-- /. WRAPPER  -->
+      </div>
+      <footer >
+         &copy; 2016 Execmobile | By : <a href="http://www.execmobile.co.za/" target="_blank">ExecMobile</a>
+      </footer>
+      <!-- /. FOOTER  -->
+      <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+      <!-- JQUERY SCRIPTS -->
+      <script src="assets/js/jquery-1.11.1.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+      <script src="assets/js/bootstrap.js"></script>
+      <!-- METISMENU SCRIPTS -->
+      <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+      <script src="assets/js/custom.js"></script>
+      <script>
+         jQuery( function($) {
+         $('tbody tr[data-href]').addClass('clickable').click( function() {
+         	window.location = $(this).attr('data-href');
+         });
+         });
+           $(document).ready(function(){
+            $('#fileUploadModal').modal('hide');
+          $('#deviceLinkModal').modal('hide');
+         });
+         $('.dropdown-menu input, .dropdown-menu label').click(function(e) {
+        e.stopPropagation();
+    });
+      </script>
+      <div id="fileUploadModal" name="fileUploadModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+     <div class="modal-content">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h2>Add new devices</h2>
+               </div>
+               <div class="modal-body">
+      
+                 <label>Choose Devices File:</label>
+                 <input id="file-input" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ng-files="availablepocketwifis.getTheFiles($files)"/>
+                  <br>
+                  
+             <button type="button" class="btn btn-primary" ng-click="availablepocketwifis.uploadNewDevices()">Upload</button>
+    </div>
+</div>
+</div>
+</div>
+ <div id="deviceLinkModal" name="deviceLinkModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+     <div class="modal-content">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                  <h2>Add/Update Zone</h2>
+               </div>
+               <div class="modal-body">
+        <form name="deviceLinkForm" ng-submit="availablepocketwifis.linkDevices(deviceLinkForm.$valid)" novalidate>
+                 <label>Company:</label>
+                     <select ng-model="availablepocketwifis.currentCompany.companyId">
+                        <option ng-repeat="company in availablepocketwifis.companies"
+                           value="{{company.companyId}}">
+                           {{company.name}}
+                        </option>
+                     </select>
+                    <br><br>
+                     <label>Product:</label>
+                     <select ng-model="availablepocketwifis.currentProduct.productId">
+                        <option ng-repeat="product in availablepocketwifis.products"
+                           value="{{product.productId}}">
+                           {{product.name}}
+                        </option>
+                     </select>
+                 <br><br>
+                  <label>Period:</label>
+                  <input type="text" name="description" class="form-control" ng-model="availablepocketwifis.period.id" required>
+                  <br><br>
+             <button type="submit" class="btn btn-primary" busy="Processing" ng-disabled="deviceLinkForm.$invalid">Link</button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+   </body>
+</html>

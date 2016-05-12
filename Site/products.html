@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="Pragma" content="no-cache"/>
+      <meta http-equiv="Expires" content="-1"/>
+      <meta http-equiv="CACHE-CONTROL" content="NO-CACHE"/>
+      <title>Execmobile Corporate</title>
+      <!-- BOOTSTRAP STYLES-->
+      <link href="assets/css/bootstrap.css" rel="stylesheet" />
+      <!-- FONTAWESOME ICONS STYLES-->
+      <link href="assets/css/font-awesome.css" rel="stylesheet" />
+      <!--CUSTOM STYLES-->
+      <link href="assets/css/style.css" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+      <script src="assets/js/app.js"></script>
+      <script src="assets/js/dirPagination.js"></script>
+      <script src="assets/js/angular-md5.js"></script>
+      <script src="assets/js/angular-busy.min.js"></script>
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/pad-nopadding-min.js"></script>
+      <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body ng-app="execMobileApp"  ng-controller="ProductController as plans">
+      <div id="wrapper">
+         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <img src="assets/img/logo.png"  class="navbar-brand"/>
+            </div>
+            <div class="notifications-wrapper">
+               <div class="nav">
+                  <a href="" ng-click="plans.tryLogout()"><i class="fa fa-sign-out fa-5x" style="float:right;margin-right:30px" ng-show="plans.isLoggedIn()"></i></a>
+                  <a href="#" 	data-toggle="dropdown">
+                        <i class="fa fa-sign-in fa-5x" style="float:right;margin-right:30px" ng-show="!plans.isLoggedIn()"></i>
+								<div class="dropdown-menu" style="left: auto;right:10px;width:200px">
+									<div class="row" style="width:220px;padding-left:15px">
+                                        <div class=" col-md-12 col-sm-6">
+										<form name="loginForm" ng-submit="plans.tryLogin(loginForm.$valid)" novalidate >
+											
+												<label class="sr-only" for="username">Username</label> 
+                                                <input type="text" class="form-control"	id="username" placeholder="Username" ng-model="plans.user.username" required>
+											
+												<label class="sr-only" for="password">Password</label>
+												<input type="password" class="form-control" id="password" placeholder="Password"  ng-model="plans.user.password" required>
+												
+												 
+												
+												<button type="submit" class="btn btn-primary btn-block" ng-disabled="loginForm.$invalid" ng-click="plans.tryLogin(loginForm.$valid)">Sign in</button>
+											
+										</form>
+                                        </div>
+									</div>
+                                    <div class="row" style="width:220px;padding-left:15px;">
+                                        <div class=" col-md-12 col-sm-6">
+                                        <a href="" ng-click="plans.requestPasswordReset()">Forgot Password ?</a>
+                                        </div>
+                                        </div>
+                                   
+								</div>
+               </div>
+            </div>
+         </nav>
+         <!-- /. NAV TOP  -->
+         <nav  class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+               <ul class="nav" id="main-menu">
+                  <li class="side-menu" ng-show="plans.isAdmin()">
+                     <a class="active-menu"  href="index.html"><i class="fa fa-building-o" ></i>Companies</a>
+                  </li>
+                  <li class="side-menu" data-target=".product" ng-show="plans.isAdmin()">
+                     <a class="active-menu"  href="#"><i class="fa fa-shopping-cart" ></i>Products</a>
+                  </li>
+                  <li class="side-menu" data-target=".freedevice" ng-show="plans.isAdmin()">
+                     <a class="active-menu"  href="freedevices.html"><i class="fa fa-mobile" ></i>Available Devices</a>
+                  </li>
+                  <li class="side-menu">
+                     <a class="active-menu" href="allocateddevices.html"><i class="fa fa-link" ></i>Devices</a>
+                  </li>
+                  <li class="side-menu" data-target=".usage" ng-show="plans.isAdmin()">
+                     <a class="active-menu" href="usage.html"><i class="fa fa-history" ></i>Usage History</a>
+                  </li>
+                   <li class="side-menu">
+                     <a class="active-menu" href="report.html"><i class="fa fa-bar-chart" ></i>Reports</a>
+                  </li>
+                  <li class="side-menu" ng-show="plans.isAdmin()">
+                     <a class="active-menu"  href="appusers.html"><i class="fa fa-user" ></i>App Users</a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         <!-- /. SIDEBAR MENU (navbar-side) -->
+         <div id="page-wrapper" class="page-wrapper-cls">
+            <!-- /. PAGE INNER  -->
+            <div id="product-page-inner" class="product content" ng-show="plans.isAdmin()">
+               <div class="row">
+                  <div class=" col-md-12 col-sm-6">
+                     <div class="nav">
+                        <a href="" data-toggle="modal" data-target="#productModal"><i class="fa fa-plus fa-2x" style="float:right; margin-right:10px"></i></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class=" col-md-12 col-sm-6">
+                     <div class="table-responsive">
+                        <br><br>
+                        <table class="table table-striped table-bordered table-hover" >
+                           <thead>
+                              <tr>
+                                 <th>Product</th>
+                                 <th>Active</th>
+                                 <th>Telkom Credentials</th>
+                                 <th>Bundles</th>
+                                 <th>Bundle Size</th>
+                                 <th>Limit</th>
+                                 <th>Details</th>
+                                 <th>Support</th>
+                                 <th>Faq</th>
+                                 <th>Zones</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="product in plans.products">
+                                 <td>{{product.name}}</td>
+                                 <td><input id="{{product.productId}}" 
+                                    type="checkbox" value="{{product.productId}}"
+                                    ng-checked="product.isActive" 
+                                    ng-click="toggleSelection(product)" />
+                                    <label for="{{product.productId}}"></label>
+                                 </td>
+                                 <td><input id="{{product.productId}}" 
+                                    type="checkbox" value="{{product.productId}}"
+                                    ng-checked="product.useTelkomCredentials" 
+                                    ng-click="toggleSelection(product)" />
+                                    <label for="{{product.productId}}"></label>
+                                 </td>
+                                 <td>{{product.bundles}}</td>
+                                 <td>{{product.bundleSize}}</td>
+                                 <td>{{product.dataLimit}}</td>
+                                 <td class="priceplan-menu" data-target=".priceplan"><a href="" ng-click="plans.setCurrentProduct(product, 'details')">Details</a>
+                                 </td>
+                                 <td class="support-menu" data-target=".support"><a href="" ng-click="plans.setCurrentProduct(product, 'support')">Support</a>
+                                 </td>
+                                 <td class="faq-menu" data-target=".faq"><a href="" ng-click="plans.setCurrentProduct(product, 'faq')">Faq</a>
+                                 </td>
+                                 <td class="area-menu" data-target=".area"><a href=""  ng-click="plans.setCurrentProduct(product, 'zone')">Zone</a>
+                                 </td>
+                                 <td><a href="" data-toggle="modal" data-target="#productModal" ng-click="plans.setProductForModal(product)"><i class="fa fa-pencil-square-o" style="float:left;"></a></i></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /. PAGE WRAPPER  -->
+         </div>
+         <!-- /. WRAPPER  -->
+      </div>
+      <footer >
+         &copy; 2016 Execmobile | By : <a href="http://www.execmobile.co.za/" target="_blank">ExecMobile</a>
+      </footer>
+      <!-- /. FOOTER  -->
+      <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+      <!-- JQUERY SCRIPTS -->
+      <script src="assets/js/jquery-1.11.1.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+      <script src="assets/js/bootstrap.js"></script>
+      <!-- METISMENU SCRIPTS -->
+      <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+      <script src="assets/js/custom.js"></script>
+      <script>
+         jQuery( function($) {
+         $('tbody tr[data-href]').addClass('clickable').click( function() {
+         	window.location = $(this).attr('data-href');
+         });
+         });
+          $(document).ready(function(){
+         $('#productModal').modal('hide');
+         });
+         $('.dropdown-menu input, .dropdown-menu label').click(function(e) {
+        e.stopPropagation();
+    });
+      </script>
+      <div id="productModal" name="productModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" ng-click="plans.clearCurrentProduct()">&times;</button>
+                  <h2>Add/Update Product</h2>
+               </div>
+               <div class="modal-body">
+               <form name="productForm" ng-submit="plans.submitForm(productForm.$valid)" novalidate>
+                  <label>Name:</label>
+                  <input type="text" name="name" class="form-control" ng-model="plans.currentProduct.name" required>
+                  <br>
+                  <label>Description:</label>
+                  <input type="text" name="description" class="form-control" ng-model="plans.currentProduct.description" required>
+                  <br>
+                  <label>Active:</label>
+                  <input id="plans.currentProduct.productId" 
+                     type="checkbox" value="plans.currentProduct.productId"
+                     ng-checked="plans.currentProduct.isActive" 
+                     ng-model="plans.currentProduct.isActive" />
+                  <br>
+                  <label>Uses Telkom Credentials:</label>
+                  <input id="plans.currentProduct.productId" 
+                     type="checkbox" value="plans.currentProduct.productId"
+                     ng-checked="plans.currentProduct.useTelkomCredentials" 
+                     ng-model="plans.currentProduct.useTelkomCredentials" />
+                  <br>
+                  <label>Bundles:</label>
+                  <input type="number" name="bundles" class="form-control" ng-model="plans.currentProduct.bundles" required value="0">
+                  <br>
+                  <label>BundleSize:</label>
+                  <input type="number" name="bundleSize" class="form-control" ng-model="plans.currentProduct.bundleSize" required value="0">
+                  <br>
+                  <label>Limit:</label>
+                  <input type="number" name="dataLimit" class="form-control" ng-model="plans.currentProduct.dataLimit" required value="0">
+                  <br>
+                  <button type="submit" class="btn btn-primary" busy="Processing" ng-disabled="productForm.$invalid">Submit</button>
+               </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
