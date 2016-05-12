@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Productsupport" table="productsupport" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="productSupportId" type="string">
+            <column name="ProductSupportID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="product" class="com.execmobile.data.Product" fetch="select">
+            <column name="ProductID" length="36" />
+        </many-to-one>
+        <property name="heading1" type="string">
+            <column name="Heading1" length="65535" not-null="true" />
+        </property>
+        <property name="headingText1" type="string">
+            <column name="HeadingText1" length="65535" not-null="true" />
+        </property>
+        <property name="heading2" type="string">
+            <column name="Heading2" length="65535" />
+        </property>
+        <property name="headingText2" type="string">
+            <column name="HeadingText2" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>

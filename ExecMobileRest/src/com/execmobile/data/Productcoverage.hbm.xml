@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Productcoverage" table="productcoverage" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="productCoverageId" type="string">
+            <column name="ProductCoverageID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="country" class="com.execmobile.data.Country" fetch="join">
+            <column name="CountryID" length="36" not-null="true" />
+        </many-to-one>
+        <many-to-one name="product" class="com.execmobile.data.Product" fetch="select">
+            <column name="ProductID" length="36" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

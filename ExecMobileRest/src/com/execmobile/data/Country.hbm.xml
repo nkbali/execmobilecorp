@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Country" table="country" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="countryId" type="string">
+            <column name="CountryID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="countryName" type="string">
+            <column name="CountryName" length="500" not-null="true" />
+        </property>
+        <set name="productcoverages" table="productcoverage" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Productcoverage" />
+        </set>
+        <set name="usages" table="usage" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" length="36" />
+            </key>
+            <one-to-many class="com.execmobile.data.Usage" />
+        </set>
+        <set name="companies" table="company" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Company" />
+        </set>
+    </class>
+</hibernate-mapping>

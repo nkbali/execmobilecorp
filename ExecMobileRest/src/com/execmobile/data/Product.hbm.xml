@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Product" table="product" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="productId" type="string">
+            <column name="ProductID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="500" not-null="true" unique="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="Description" length="1000" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="Username" length="65535" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="65535" not-null="true" />
+        </property>
+        <property name="key" type="string">
+            <column name="WSKey" length="65535" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="IsActive" not-null="true" sql-type="tinyint"/>
+        </property>
+        <property name="bundles" type="int">
+            <column name="Bundles" not-null="true" />
+        </property>
+        <property name="bundleSize" type="int">
+            <column name="BundleSize" not-null="true" />
+        </property>
+        <property name="dataLimit" type="int">
+            <column name="DataLimit" not-null="true" />
+        </property>
+        <set name="devices" table="device" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductID" length="36"/>
+            </key>
+            <one-to-many class="com.execmobile.data.Device" />
+        </set>
+        <set name="productpriceplans" table="productpriceplan" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Productpriceplan" />
+        </set>
+        <set name="productsupports" table="productsupport" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductID" length="36" />
+            </key>
+            <one-to-many class="com.execmobile.data.Productsupport" />
+        </set>
+        <set name="faqs" table="faq" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductId" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Faq" />
+        </set>
+        <set name="productcoverages" table="productcoverage" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Productcoverage" />
+        </set>
+        <set name="zones" table="zone" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ProductID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Zone" />
+        </set>
+    </class>
+</hibernate-mapping>

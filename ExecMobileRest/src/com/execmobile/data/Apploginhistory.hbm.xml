@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Apploginhistory" table="apploginhistory" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="appLoginHistoryId" type="string">
+            <column name="AppLoginHistoryID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="device" class="com.execmobile.data.Device" fetch="select">
+            <column name="DeviceID" length="36" not-null="true" />
+        </many-to-one>
+        <property name="email" type="string">
+            <column name="Email" length="150" not-null="true" />
+        </property>
+        <property name="token" type="string">
+            <column name="Token" length="36" not-null="true" />
+        </property>
+        <property name="lastAccessTime" type="string">
+            <column name="LastAccessTime" length="150" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

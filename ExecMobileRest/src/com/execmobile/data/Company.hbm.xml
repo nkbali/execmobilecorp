@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Company" table="company" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="companyId" type="string">
+            <column name="CompanyID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="country" class="com.execmobile.data.Country" fetch="join">
+            <column name="CountryID" length="36" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="Name" length="500" not-null="true" unique="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="Username" length="36" unique="true"/>
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="36" />
+        </property>
+        <property name="accessToken" type="string">
+            <column name="AccessToken" length="36" unique="true" />
+        </property>
+        <property name="lastAccessTime" type="string">
+            <column name="lastAccessTime" length="36" />
+        </property>
+        <set name="devices" table="device" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" length="36" />
+            </key>
+            <one-to-many class="com.execmobile.data.Device" />
+        </set>
+        <set name="subscribers" table="subscriber" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" length="36" />
+            </key>
+            <one-to-many class="com.execmobile.data.Subscriber" />
+        </set>
+        <set name="sessions" table="sessionlist" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CompanyID" length="36" />
+            </key>
+            <one-to-many class="com.execmobile.data.Sessionlist" />
+        </set>
+    </class>
+</hibernate-mapping>

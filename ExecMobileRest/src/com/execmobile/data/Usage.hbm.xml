@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Usage" table="usage" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="usageId" type="string">
+            <column name="UsageID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="country" class="com.execmobile.data.Country" fetch="join">
+            <column name="CountryID" length="36" />
+        </many-to-one>
+        <many-to-one name="device" class="com.execmobile.data.Device" fetch="join">
+            <column name="DeviceID" length="36" not-null="true" />
+        </many-to-one>
+        <property name="recordDate" type="string">
+            <column name="RecordDate" length="19" not-null="true" />
+        </property>
+        <property name="bundles" type="java.lang.Integer">
+            <column name="Bundles" />
+        </property>
+        <property name="zone" type="string">
+            <column name="Zone" length="200" not-null="true" />
+        </property>
+        <property name="base" type="string">
+            <column name="Base" length="200" />
+        </property>
+        <property name="ext" type="string">
+            <column name="Ext" length="200" />
+        </property>
+        <property name="total" type="string">
+            <column name="Total" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">SoulSearcher@1302</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/execmobile_usage</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<property name="show_sql">true</property>
+		<property name="connection.pool_size">1</property>
+
+		<mapping resource="com/execmobile/data/Adminusers.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Apploginhistory.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Company.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Country.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Device.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Faq.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Product.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Productcoverage.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Productpriceplan.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Productsupport.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Subscriber.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Usage.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Zone.hbm.xml"></mapping>
+		<mapping resource="com/execmobile/data/Sessionlist.hbm.xml"></mapping>
+	</session-factory>
+</hibernate-configuration>

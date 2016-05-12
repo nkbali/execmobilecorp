@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Subscriber" table="subscriber" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="subscriberId" type="string">
+            <column name="SubscriberID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="company" class="com.execmobile.data.Company" fetch="select">
+            <column name="CompanyID" length="36" />
+        </many-to-one>
+        <many-to-one name="device" class="com.execmobile.data.Device" fetch="select">
+            <column name="DeviceID" length="36" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="Name" length="150" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="150" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

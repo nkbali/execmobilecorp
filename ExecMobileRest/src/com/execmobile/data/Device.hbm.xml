@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 31, 2016 10:08:24 PM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.execmobile.data.Device" table="device" catalog="execmobile_usage" optimistic-lock="version">
+        <id name="deviceId" type="string">
+            <column name="DeviceID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="company" class="com.execmobile.data.Company" fetch="join">
+            <column name="CompanyID" length="36" />
+        </many-to-one>
+        <many-to-one name="product" class="com.execmobile.data.Product" fetch="join">
+            <column name="ProductID" length="36"  />
+        </many-to-one>
+        <property name="imei" type="string">
+            <column name="IMEI" length="45" not-null="true" />
+        </property>
+        <property name="msisdn" type="string">
+            <column name="MSISDN" length="45" />
+        </property>
+        <property name="zteref" type="string">
+            <column name="ZTERef" length="45" />
+        </property>
+        <property name="ref" type="string">
+            <column name="Ref" length="45" not-null="true" />
+        </property>
+        <property name="comment" type="string">
+            <column name="Comment" length="500" />
+        </property>
+        <property name="support" type="string">
+            <column name="Support" length="150" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="IsActive" not-null="true" />
+        </property>
+        <property name="invoiceName" type="string">
+            <column name="InvoiceName" length="150" />
+        </property>
+        <property name="invoiceNumber" type="string">
+            <column name="InvoiceNumber" length="20"/>
+        </property>
+        <property name="period" type="string">
+            <column name="Period" length="200"/>
+        </property>
+        <property name="rinvNo" type="string">
+            <column name="RinvNo" length="200" />
+        </property>
+        <property name="bundlesUsed" type="int">
+            <column name="BundlesUsed"  />
+        </property>
+        <property name="sim" type="string">
+            <column name="Sim" length="65535" />
+        </property>
+        <set name="subscribers" table="subscriber" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DeviceID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Subscriber" />
+        </set>
+        <set name="apploginhistories" table="apploginhistory" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DeviceID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Apploginhistory" />
+        </set>
+        <set name="usages" table="usage" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DeviceID" length="36" not-null="true" />
+            </key>
+            <one-to-many class="com.execmobile.data.Usage" />
+        </set>
+    </class>
+</hibernate-mapping>
